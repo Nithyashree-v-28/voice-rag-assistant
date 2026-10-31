@@ -9,7 +9,9 @@ from google import genai
 from google.genai import errors
 
 # Load environment variables
-load_dotenv()
+from pathlib import Path
+
+load_dotenv(dotenv_path=Path(__file__).resolve().parent.parent / ".env")
 
 # Connect to Gemini
 client = genai.Client(
@@ -96,7 +98,7 @@ def ask_question(question):
 
             if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
                 print("Gemini quota exceeded. Stopping retries.")
-                    break
+                break
             if attempt < 2:
                 time.sleep(5)
 
@@ -108,10 +110,10 @@ def ask_question(question):
     return answer
 
 # Test the RAG pipeline
-question = "What is the purpose of a Data Warehouse?"
+if __name__ == "__main__":
+    question = "What is the purpose of a Data Warehouse?"
 
+    answer = ask_question(question)
 
-answer = ask_question(question)
-
-print("\nQuestion:", question)
-print("\nAnswer:", answer)
+    print("\nQuestion:", question)
+    print("\nAnswer:", answer)
