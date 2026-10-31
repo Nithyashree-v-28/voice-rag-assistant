@@ -24,3 +24,12 @@ using information retrieved from PDF documents.
 - Gemini API
 - FastAPI
 - Git
+
+### Retrieval Experiment
+
+| Number of chunks (k) | Observation |
+|---|---|
+| 2 | Retrieved partially relevant information for the components question |
+| 3 | Retrieved the exact architecture and core components sections |
+
+Conclusion: Retrieving 3 chunks improved context coverage for this question.
