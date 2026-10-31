@@ -1,0 +1,18 @@
+# Virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# API keys and environment variables
+.env
+
+# Local PDF documents
+data/*.pdf
+
+# IDE settings
+.vscode/
+
+# Testing cache
+.pytest_cache/
