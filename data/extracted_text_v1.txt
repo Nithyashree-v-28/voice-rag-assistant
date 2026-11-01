@@ -1,0 +1,1387 @@
+ 
+ 
+ 
+AD23V513 DATA WAREHOUSING AND DATA MINING 
+ 
+ 
+ 
+UNIT I 
+DATA WAREHOUSING 
+ 
+UNIT I DATA WAREHOUSING 
+ 
+ 
+ 
+ 
+ 
+ 
+ 9 
+ 
+Introduction to Data warehousing – Evolution of Decision Support systems – Modelling a Data Warehouse – 
+Granularity in the Data Warehouse - Data Warehousing Components, building a Data Warehouse, Warehouse 
+Database, Mapping the Data Warehouse to a Multiprocessor Architecture, DBMS Schemas for Decision Support, 
+Metadata Management in Data Warehouse: Introduction to Metadata, Categorizing Metadata, Metadata management 
+in practice, Tools for Metadata management. 
+ 
+OBJECTIVE 
+ 
+To understand the concepts of data warehousing, multidimensional data models, and OLAP operations. 
+ 
+ 
+OUTCOME CO1 
+ 
+Understand the fundamentals of analytics and decision support systems. 
+ 
+ 
+I 
+Introduction to Data Warehousing 
+A data warehouse is a collection of data marts representing historical data from different operations in the 
+company. This data is stored in a structure optimized for querying and data analysis as a data warehouse. Table 
+design, dimensions and organization should be consistent throughout a data warehouse so that reports or queries 
+across the data warehouse are consistent. 
+ 
+A data warehouse can also be viewed as a database for historical data from different functions within a company. 
+The term Data Warehouse was coined by Bill Inmon in 1990, which he defined in the following way: "A warehouse 
+is a subject-oriented, integrated, time-variant and non-volatile collection of data in support of management's 
+decision making process". He defined the terms in the sentence as follows: 
+ Subject Oriented: Data that gives information about a particular subject instead of about a company's 
+ongoing operations. 
+ Integrated: Data that is gathered into the data warehouse from a variety of sources and merged into a 
+coherent whole. 
+ Time-variant: All data in the data warehouse is identified with a particular time period. 
+ Non-volatile: Data is stable in a data warehouse. More data is added but data is never removed. This 
+
+ 
+ 
+enables management to gain a consistent picture of the business. It is a single, complete and consistent 
+store of data obtained from a variety of different sources made available to end users in what they can 
+understand and use in a business context. It can be Used for decision Support, Used to manage and 
+control business, Used by managers and end-users to understand the business and make judgments. 
+Data Warehousing is an architectural construct of information systems that provides users with current and 
+historical decision support information that is hard to access or present in traditional operational data stores 
+Other important terminologies 
+ Enterprise Data warehouse: It collects all information about subjects (customers, products, sales, assets, 
+personnel) that span the entire organization 
+ Data Mart: Departmental subsets that focus on selected subjects. A data mart is a segment of a data 
+warehouse that can provide data for reporting and analysis on a section, unit, department or operation 
+in the company, e.g. sales, payroll, production. Data marts are sometimes complete individual data 
+warehouses which are usually smaller than the corporate data warehouse. 
+ Decision Support System (DSS): Information technology to help the knowledge worker (executive, 
+manager, and analyst) makes faster & better decisions 
+ Drill-down: Traversing the summarization levels from highly summarized data to the underlying 
+current or old detail 
+ Metadata: Data about data. Containing location and description of warehouse system components: 
+names, definition, structure… 
+Benefits of data warehousing 
+ Data warehouses are designed to perform well with aggregate queries running on large amounts of 
+data. 
+ The structure of data warehouses is easier for end users to navigate, understand and query against 
+unlike the relational databases primarily designed to handle lots of transactions. 
+ Data warehouses enable queries that cut across different segments of a company's operation. E.g. 
+production data could be compared against inventory data even if they were originally stored in different 
+databases with different structures. 
+ Queries that would be complex in very normalized databases could be easier to build and 
+maintain in data warehouses, decreasing the workload on transaction systems. 
+ Data warehousing is an efficient way to manage and report on data that is from a variety of 
+sources, non-uniform and scattered throughout a company. 
+ Data warehousing is an efficient way to manage demand for lots of information from lots of 
+users. 
+
+ 
+ 
+ Data warehousing provides the capability to analyze large amounts of historical data for nuggets 
+of wisdom that can provide an organization with competitive advantage. 
+Operational and informational Data Operational Data: 
+ Focusing on transactional function such as bank card withdrawals and deposits 
+ Detailed 
+ Updateable 
+ Reflects current data 
+ 
+ 
+Informational Data: 
+Focusing on providing answers to problems posed by decision makers, Summarized and Nonupdatable 
+Data Warehouse Characteristics 
+A data warehouse can be viewed as an information system with the following attributes: 
+– It is a database designed for analytical tasks 
+– It’s content is periodically updated 
+– It contains current and historical data to provide a historical perspective of information 
+Operational data store (ODS) 
+• ODS is an architecture concept to support day-to-day operational decision support and contains current 
+value data propagated from operational applications 
+• ODS is subject-oriented, similar to a classic definition of a Data warehouse 
+• ODS is integrated. 
+
+ 
+ 
+ 
+II 
+Evolution of Decision Support Systems 
+ 
+1960s–1970s: Emergence of Management Information Systems (MIS). 
+1980s: Online Transaction Processing (OLTP) systems helped collect data. 
+1990s: Decision Support Systems (DSS) matured using multidimensional analysis. 
+Modern era: Data Warehousing and Business Intelligence systems integrate AI/ML tools. 
+ 
+III 
+Modeling a Data Warehouse 
+ 
+Uses dimensional modeling: 
+ 
+- Star Schema: A central fact table linked to dimension tables. 
+- Snowflake Schema: Normalized dimension tables. 
+- Fact Constellation: Multiple fact tables sharing dimension tables. 
+ 
+Fact Table: Contains measurable, quantitative data (e.g., sales). 
+Dimension Table: Describes perspectives for analysis (e.g., time, geography). 
+ 
+Data modeling is the process of designing a visual representation of a system or database to establish how data 
+will be stored, accessed, and managed. In the context of a data warehouse, data modeling involves defining how 
+different data elements interact and how they are organized for efficient retrieval and analysis. The primary goal 
+is to create a blueprint that guides the development of the data warehouse. 
+ 
+Types of Data Models 
+Data modeling for data warehouses typically involves three main types of models: 
+ 
+1. Conceptual Data Model 
+ 
+Purpose: Provides a high-level overview of the business entities and their relationships without going into 
+technical details. 
+ 
+Components: Entities, relationships, and attributes. 
+ 
+Example: A conceptual model might define entities like "Customer," "Product," and "Sales" and illustrate the 
+relationships between them. 
+ 
+2. Logical Data Model 
+ 
+Purpose: Represents the logical structure of the data, including the relationships between entities and the 
+data types for each attribute, without considering physical storage. 
+ 
+Components: Tables, columns, relationships, and constraints. 
+
+ 
+ 
+ 
+Example: A logical model might define tables such as "Customer," "Product," and "Sales" with their 
+respective columns like "CustomerID," "ProductID," and "SaleDate." 
+ 
+3. Physical Data Model 
+ 
+Purpose: Specifies how the data will be physically stored in the database, including indexing, partitioning, 
+and data storage mechanisms. 
+ 
+Components: Tables, indexes, partitions, and storage settings. 
+ 
+Example: A physical model might define storage settings for the "Sales" table, such as partitioning by date to 
+improve query performance. 
+ 
+Importance of Data Modeling in Data Warehouses 
+ 
+Improved Data Quality: A well-structured data model helps ensure data consistency, accuracy, and 
+reliability, which are critical for generating meaningful insights. 
+ 
+Efficient Data Retrieval: By organizing data into logical structures, data modeling enables faster and more 
+efficient data retrieval, which is essential for timely decision-making. 
+ 
+Scalability: A robust data model allows for easy scaling of the data warehouse as the volume of data grows, 
+ensuring that performance remains optimal. 
+ 
+Reduced Redundancy: Proper data modeling helps eliminate data redundancy, reducing storage costs and 
+simplifying data management. 
+ 
+Key Data Modeling Techniques for Data Warehouses 
+1. Star Schema 
+ 
+The star schema is the simplest and most commonly used data warehouse schema. It consists of a central fact 
+table surrounded by dimension tables. 
+ 
+Components: Fact tables, dimension tables. 
+ 
+Advantages: 
+o 
+Simple and easy to understand. 
+o 
+Efficient for querying large datasets. 
+ 
+Use Case: Best suited for straightforward, query-intensive environments where speed is crucial. 
+ 
+A star schema is a type of data modeling technique used in data warehousing to represent data in a structured 
+and intuitive way. In a star schema, data is organized into a central fact table that contains the measures of 
+interest, surrounded by dimension tables that describe the attributes of the measures. 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+The fact table in a star schema contains the measures or metrics that are of interest to the user or 
+organization. For example, in a sales data warehouse, the fact table might contain sales revenue, units sold, 
+and profit margins. Each record in the fact table represents a specific event or transaction, such as a sale or 
+order. 
+ 
+The dimension tables in a star schema contain the descriptive attributes of the measures in the fact table. 
+These attributes are used to slice and dice the data in the fact table, allowing users to analyze the data from 
+different perspectives. For example, in a sales data warehouse, the dimension tables might include product, 
+customer, time, and location. 
+ 
+Each dimension table is joined to the fact table through a foreign key relationship. This allows users to query the 
+data in the fact table using attributes from the dimension tables. For example, a user might want to see sales 
+revenue by product category, or by region and time period. 
+ 
+It is said to be star as its physical model resembles to the star shape having a fact table at its center and the 
+dimension tables at its peripheral representing the star’s points. It is the fundamental schema among the data 
+mart schema and it is simplest. 
+ 
+ 
+This schema is widely used to develop or build a data warehouse and dimensional data marts. It includes one 
+or more fact tables indexing any number of dimensional tables. The star schema is a necessary cause of 
+the snowflake schema. It is also efficient for handling basic queries. 
+ 
+Often, A Star Schema having multiple dimensions is termed as Centipede Schema. 
+ 
+It is easy to handle a star schema which have dimensions of few attributes. 
+ 
+Example of Star Schema 
+In the given demonstration, SALES is a fact table having attributes i.e. (Product ID, Order ID, Customer ID, 
+Employer ID, Total, Quantity, Discount) which references to the dimension tables. Employee dimension 
+table contains the attributes: Emp ID, Emp Name, Title, Department and Region. Product dimension 
+table contains the attributes: Product ID, Product Name, Product Category, Unit Price. Customer dimension 
+table contains the attributes: Customer ID, Customer Name, Address, City, Zip. Time dimension table contains the 
+attributes: Order ID, Order Date, Year, Quarter, Month. 
+
+ 
+ 
+ 
+ 
+Advantages of Star Schema 
+1. Simpler Queries 
+Join logic of star schema is quite cinch in comparison to other join logic which are needed to fetch data from 
+a transactional schema that is highly normalized. 
+2. Simplified Business Reporting Logic 
+In comparison to a transactional schema that is highly normalized, the star schema makes simpler common 
+business reporting logic, such as of reporting and period-over-period. 
+3. Feeding Cubes 
+Star schema is widely used by all OLAP systems to design OLAP cubes efficiently. In fact, major OLAP systems 
+deliver a ROLAP mode of operation which can use a star schema as a source without designing a cube 
+structure. 
+Disadvantages of Star Schema 
+1. Data integrity is not enforced well since in a highly de-normalized schema state. 
+2. Not flexible in terms if analytical needs as a normalized data model. 
+3. Star schemas don't reinforce many-to-many relationships within business entities - at least not frequently. 
+ 
+Features of Star Schema 
+1. Central fact table: The star schema revolves around a central fact table that contains the numerical data 
+being analyzed. This table contains foreign keys to link to dimension tables. 
+2. Dimension tables: Dimension tables are tables that contain descriptive attributes about the data being 
+analyzed. These attributes provide context to the numerical data in the fact table. Each dimension table is 
+linked to the fact table through a foreign key. 
+3. Denormalized structure: A star schema is denormalized, which means that redundancy is allowed in the 
+schema design to improve query performance. This is because it is easier and faster to join a small number of 
+tables than a large number of tables. 
+4. Simple queries: Star schema is designed to make queries simple and fast. Queries can be written in a 
+straightforward manner by joining the fact table with the appropriate dimension tables. 
+5. Aggregated data: The numerical data in the fact table is usually aggregated at different levels of granularity, 
+such as daily, weekly, or monthly. This allows for analysis at different levels of detail. 
+
+ 
+ 
+6. Fast performance: Star schema is designed for fast query performance. This is because the schema is 
+denormalized and data is pre-aggregated, making queries faster and more efficient. 
+7. Easy to understand: The star schema is easy to understand and interpret, even for non-technical users. This 
+is because the schema is designed to provide context to the numerical data through the use of dimension 
+tables. 
+ 
+ 
+2. Snowflake Schema 
+The snowflake schema is a more complex version of the star schema where dimension tables are normalized into 
+multiple related tables. 
+ 
+Components: Fact tables, normalized dimension tables. 
+ 
+Advantages: 
+o 
+Reduces data redundancy. 
+o 
+Can improve query performance by reducing the size of dimension tables. 
+ 
+Use Case: Ideal for data warehouses where space efficiency and data integrity are prioritized. 
+ 
+3. Galaxy Schema (Fact Constellation): 
+The galaxy schema, also known as a fact constellation, consists of multiple fact tables that share dimension 
+tables. It's a more complex model used to represent multiple business processes. 
+ 
+Components: Multiple fact tables, shared dimension tables. 
+ 
+Advantages: 
+o 
+Supports complex queries across multiple business processes. 
+o 
+Allows for more flexibility in data analysis. 
+ 
+Use Case: Best for large, enterprise-level data warehouses with diverse business processes. 
+ 
+4. Normalized Data Model: 
+This technique involves organizing the data into tables that reduce redundancy and dependency by splitting 
+larger tables into smaller ones and linking them via relationships. 
+ 
+Components: Normalized tables, relationships. 
+ 
+Advantages: 
+o 
+Eliminates data redundancy. 
+o 
+Improves data integrity. 
+ 
+Use Case: Suitable for environments where data consistency and integrity are more critical than query 
+performance. 
+ 
+5. Denormalized Data Model: 
+Denormalization is the process of combining normalized tables into larger tables to reduce the complexity of 
+queries and improve performance. 
+ 
+Components: Denormalized tables, fewer relationships. 
+ 
+Advantages: 
+o 
+Faster query performance. 
+o 
+Simplified query design. 
+ 
+Use Case: Ideal for data warehouses where query speed is more important than storage efficiency. 
+ 
+ 
+IV 
+Granularity in the Data Warehouse 
+ 
+Refers to the level of detail stored: 
+ 
+High granularity = detailed data (e.g., transaction-level). 
+Low granularity = summarized/aggregated data (e.g., monthly reports). 
+Impacts performance, storage, and query response times. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+V 
+Data Warehousing Components 
+ 
+ 
+1. Source Data Systems (OLTP systems) 
+2. ETL Tools (Extract, Transform, Load) 
+3. Data Staging Area 
+4. Data Storage (Warehouse) 
+5. Metadata Repository 
+6. Query and Reporting Tools 
+7. OLAP Engine 
+ 
+Core Components of a Data Warehouse 
+ 
+ 
+A data warehouse is an integrated system that consolidates data from operational systems and external sources, 
+providing valuable insights for decision-making. It includes various components that work together to store, 
+manage and access data efficiently. The data moves from the data source area through the staging area to the 
+presentation server. The entire process is better known as ETL (extract, transform and load). Here are the key 
+components of a data warehouse and their respective tasks: 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1. Operational Source Systems 
+ 
+Provide raw data from internal systems (e.g., relational databases like Informix oracle) and external sources. 
+Serve as the primary input for the data warehouse. 
+ 
+2. Load Manager 
+ 
+Manages the ETL (Extract, Transform, Load) process for data extraction and transformation.Prepares data for 
+entry into the warehouse, ensuring it meets the required format. 
+ 
+3. Warehouse Manager 
+Oversees data storage, aggregation and analysis within the data warehouse. Handles tasks like data de-
+normalization, backup, collection and optimization for better performance. 
+ 
+4.Query Manager 
+ 
+ 
+Handles user queries within the data warehouse. Supports querying, reporting and data retrieval, with 
+functionality dependent on the available end-user tools. 
+ 
+5. Detailed Data 
+Stores granular, raw data for complex analysis and reporting. Provides comprehensive insights and supports in-
+depth research. 
+ 
+6. Summarized Data 
+Stores predefined aggregations of detailed data for faster queries and reports. Provides high-level insights to 
+assist in decision making. 
+ 
+7. Archive and Backup Data 
+ 
+Ensures data integrity and disaster recovery through regular backups and archival storage. Archives older, less 
+frequently accessed data for future use or compliance. 
+ 
+8. Metadata 
+ 
+Metadata contains information about data structure, source and transformation processes. Supports the ETL 
+process, warehouse management and querying by providing essential context for data. 
+ 
+9. End-User Access Tools 
+ 
+Serve as the interface for users to interact with the data warehouse.Include analysis, reporting and data mining 
+tools, enabling users to access, query and derive insights from the data. 
+ 
+ 
+
+ 
+ 
+Data warehouse Architecture and its seven components 
+1. Data sourcing, cleanup, transformation, and migration tools 
+2. Metadata repository 
+3. Warehouse/database technology 
+4. Data marts 
+5. Data query, reporting, analysis, and mining tools 
+6. Data warehouse administration and management 
+7. Information delivery system 
+ 
+ 
+Data warehouse is an environment, not a product which is based on relational database management 
+system that functions as the central repository for informational data. The central repository information is 
+surrounded by number of key components designed to make the environment is functional, manageable and 
+accessible. 
+
+ 
+ 
+ 
+ 
+The data source for data warehouse is coming from operational applications. The data entered into 
+the data warehouse transformed into an integrated structure and format. The transformation process 
+involves conversion, summarization, filtering and condensation. The data warehouse must be capable of 
+holding and managing large volumes of data as well as different structure of data structures over the time. 
+1. Data warehouse database 
+This is the central part of the data warehousing environment. This is the item number 2 in the above 
+arch. diagram. This is implemented based on RDBMS technology. 
+2. Sourcing, Acquisition, Clean up, and Transformation Tools 
+This is item number 1 in the above arch diagram. They perform conversions, summarization, key 
+changes, structural changes and condensation. The data transformation is required so that the information 
+can by used by decision support tools. The transformation 
+
+ 
+ 
+produces programs, control statements, JCL code, COBOL code, UNIX scripts, and SQL DDL code etc., to 
+move the data into data warehouse from multiple operational systems. 
+The functionalities of these tools are listed below: 
+ To remove unwanted data from operational db 
+ Converting to common data names and attributes 
+ Calculating summaries and derived data 
+ Establishing defaults for missing data 
+ Accommodating source data definition change. 
+ 
+ 
+Issues to be considered while data sourcing, cleanup, extract and transformation: 
+Data heterogeneity: It refers to DBMS different nature such as it may be in different data modules, it may have 
+different access languages, it may have data navigation methods, operations, concurrency, integrity and 
+recovery processes etc., 
+ 
+3. Meta data 
+It is data about data. It is used for maintaining, managing and using the data warehouse. It is 
+classified into two: 
+1. Technical Meta data: It contains information about data warehouse data used by warehouse designer, 
+administrator to carry out development and management tasks. It includes, 
+ Info about data stores 
+ Transformation descriptions. That is mapping methods from operational db to warehouse db 
+ Warehouse Object and data structure definitions for target data 
+ The rules used to perform clean up, and data enhancement 
+ Data mapping operations 
+ Access authorization, backup history, archive history, info delivery history, data acquisition history, 
+data access etc. 
+2. Business Meta data: It contains info that gives info stored in data warehouse to users. It includes, 
+
+ 
+ 
+ Subject areas, and info object type including queries, reports, images, video, audio clips etc. 
+ Internet home pages 
+ Info related to info delivery system 
+ Data warehouse operational info such as ownerships, audit trails etc., 
+Meta data helps the users to understand content and find the data. Meta data are stored in a separate 
+data stores which is known as informational directory or Meta data repository which helps to integrate, 
+maintain and view the contents of the data warehouse. 
+The following lists the characteristics of info directory/ Meta data: 
+ It is the gateway to the data warehouse environment 
+ It supports easy distribution and replication of content for high performance and 
+availability 
+ It should be searchable by business oriented key words 
+ It should act as a launch platform for end user to access data and analysis tools 
+ It should support the sharing of info 
+ It should support scheduling options for request 
+ IT should support and provide interface to other applications 
+ It should support end user monitoring of the status of the data warehouse environment 
+4. Access tools 
+Its purpose is to provide info to business users for decision making. There are five categories: 
+ Data query and reporting tools 
+ Application development tools 
+ Executive info system tools (EIS) 
+ OLAP tools 
+ Data mining tools 
+Query and reporting tools are used to generate query and report. There are two types of reporting tools. They 
+are: 
+
+ 
+ 
+ Production reporting tool used to generate regular operational reports 
+ Desktop report writer are inexpensive desktop tools designed for end users. 
+Managed Query tools: used to generate SQL query. It uses Meta layer software in between users and 
+databases which offers a point-and-click creation of SQL statement. This tool is a preferred choice of users to 
+perform segment identification, demographic analysis, territory management and preparation of customer 
+mailing lists etc. 
+Application development tools: This is a graphical data access environment which integrates OLAP tools 
+with data warehouse and can be used to access all database systems 
+OLAP Tools: are used to analyze the data in multi dimensional and complex views. To enable 
+multidimensional properties it uses MDDB and MRDB where MDDB refers multi dimensional data base and 
+MRDB refers multi relational data bases. 
+Data mining tools: are used to discover knowledge from the data warehouse data also can be used for data 
+visualization and data correction purposes. 
+5. Data marts 
+Departmental subsets that focus on selected subjects. They are independent used by dedicated user 
+group. They are used for rapid delivery of enhanced decision support functionality to end users. Data mart is 
+used in the following situation: 
+ Extremely urgent user requirement 
+ The absence of a budget for a full scale data warehouse strategy 
+ The decentralization of business needs 
+ The attraction of easy to use tools and mind sized project Data 
+mart presents two problems: 
+1. Scalability: A small data mart can grow quickly in multi dimensions. So that while designing it, the 
+organization has to pay more attention on system scalability, consistency and manageability issues 
+2. Data integration 
+6. Data warehouse admin and management 
+The management of data warehouse includes, 
+
+ 
+ 
+ Security and priority management 
+ Monitoring updates from multiple sources 
+ Data quality checks 
+ Managing and updating meta data 
+ Auditing and reporting data warehouse usage and status 
+ Purging data 
+ Replicating, sub setting and distributing data 
+ Backup and recovery 
+ Data warehouse storage management which includes capacity planning, hierarchical storage 
+management and purging of aged data etc., 
+7. Information delivery system 
+• It is used to enable the process of subscribing for data warehouse info. 
+• Delivery to one or more destinations according to specified scheduling algorithm 
+ 
+ 
+ 
+Building a Data warehouse 
+There are two reasons why organizations consider data warehousing a critical need. In other words, there are 
+two factors that drive you to build and use data warehouse. They are: Business factors: 
+ Business users want to make decision quickly and correctly using all available data. 
+Technological factors: 
+ To address the incompatibility of operational data stores 
+ IT infrastructure is changing rapidly. Its capacity is increasing and cost is decreasing so that 
+building a data warehouse is easy 
+There are several things to be considered while building a successful data warehouse 
+Business considerations: 
+Organizations interested in development of a data warehouse can choose one of the following two 
+approaches: 
+
+ 
+ 
+ Top - Down Approach (Suggested by Bill Inmon) 
+ Bottom - Up Approach (Suggested by Ralph Kimball) 
+Top - Down Approach 
+In the top down approach suggested by Bill Inmon, we build a centralized repository to house 
+corporate wide business data. This repository is called Enterprise Data Warehouse (EDW). The data in the 
+EDW is stored in a normalized form in order to avoid redundancy. The central repository for corporate wide 
+data helps us maintain one version of truth of the data. The data in the EDW is stored at the most detail level. 
+The reason to build the EDW on the most detail level is to leverage 
+1. Flexibility to be used by multiple departments. 
+2. Flexibility to cater for future requirements. The 
+disadvantages of storing data at the detail level are 
+1. The complexity of design increases with increasing level of detail. 
+2. It takes large amount of space to store data at detail level, hence increased cost. 
+Once the EDW is implemented we start building subject area specific data marts which contain data 
+in a de normalized form also called star schema. The data in the marts are usually summarized based on the 
+end users analytical requirements. The reason to de normalize the data in the mart is to provide faster access 
+to the data for the end users analytics. If we were to have queried a normalized schema for the same analytics, 
+we would end up in a complex multiple level joins that would be much slower as compared to the one on the 
+de normalized schema. 
+We should implement the top-down approach when 
+1. The business has complete clarity on all or multiple subject areas data warehouse 
+requirements. 
+2. The business is ready to invest considerable time and money. 
+The advantage of using the Top Down approach is that we build a centralized repository to 
+cater for one version of truth for business data. This is very important for the data to be reliable, 
+consistent across subject areas and for reconciliation in case of data related contention between 
+subject areas. 
+
+ 
+ 
+The disadvantage of using the Top Down approach is that it requires more time and initial investment. 
+The business has to wait for the EDW to be implemented followed by building the data marts before which 
+they can access their reports. 
+Bottom Up Approach 
+The bottom up approach suggested by Ralph Kimball is an incremental approach to build a data 
+warehouse. Here we build the data marts separately at different points of time as and when the specific subject 
+area requirements are clear. The data marts are integrated or combined together to form a data warehouse. 
+Separate data marts are combined through the use of conformed dimensions and conformed facts. A 
+conformed dimension and a conformed fact is one that can be shared across data marts. 
+A Conformed dimension has consistent dimension keys, consistent attribute names and consistent 
+values across separate data marts. The conformed dimension means exact same thing with every fact table it 
+is joined. 
+A Conformed fact has the same definition of measures, same dimensions joined to it and at the same 
+granularity across data marts. 
+The bottom up approach helps us incrementally build the warehouse by developing and integrating 
+data marts as and when the requirements are clear. We don’t have to wait for knowing the overall 
+requirements of the warehouse. 
+We should implement the bottom up approach when 
+1. We have initial cost and time constraints. 
+2. The complete warehouse requirements are not clear. We have clarity to only one data mart. The 
+advantage of using the Bottom Up approach is that they do not require high initial costs and have a faster 
+implementation time; hence the business can start using the marts much earlier as compared to the top-
+down approach. 
+The disadvantages of using the Bottom Up approach are that it stores data in the de normalized 
+format; hence there would be high space usage for detailed data. We have a tendency of not keeping detailed 
+data in this approach hence losing out on advantage of having detail data 
+i.e. flexibility to easily cater to future requirements. Bottom up approach is more realistic but the complexity 
+of the integration may become a serious obstacle. 
+
+ 
+ 
+Design considerations 
+To be a successful data warehouse designer must adopt a holistic approach that is considering all data 
+warehouse components as parts of a single complex system, and take into account all possible data sources 
+and all known usage requirements. 
+Most successful data warehouses that meet these requirements have these common characteristics: 
+ Are based on a dimensional model 
+ Contain historical and current data 
+ Include both detailed and summarized data 
+ Consolidate disparate data from multiple sources while retaining consistency Data 
+warehouse is difficult to build due to the following reason: 
+ Heterogeneity of data sources 
+ Use of historical data 
+ Growing nature of data base 
+Data warehouse design approach muse be business driven, continuous and iterative engineering approach. 
+In addition to the general considerations there are following specific points relevant to the data warehouse 
+design: 
+Data content 
+The content and structure of the data warehouse are reflected in its data model. The data model is the 
+template that describes how information will be organized within the integrated warehouse framework. The 
+data warehouse data must be a detailed data. It must be formatted, cleaned up and transformed to fit the 
+warehouse data model. 
+Meta data 
+It defines the location and contents of data in the warehouse. Meta data is searchable by users to find 
+definitions or subject areas. In other words, it must provide decision support oriented pointers to warehouse 
+data and thus provides a logical link between warehouse data and decision support applications. 
+
+ 
+ 
+Data distribution 
+One of the biggest challenges when designing a data warehouse is the data placement and distribution 
+strategy. Data volumes continue to grow in nature. Therefore, it becomes necessary to know how the data 
+should be divided across multiple servers and which users should get access to which types of data. The data 
+can be distributed based on the subject area, location (geographical region), or time (current, month, year). 
+Tools 
+A number of tools are available that are specifically designed to help in the implementation of the data 
+warehouse. All selected tools must be compatible with the given data warehouse environment and with each 
+other. All tools must be able to use a common Meta data repository. 
+ 
+Design steps 
+The following nine-step method is followed in the design of a data warehouse: 
+1. Choosing the subject matter 
+2. Deciding what a fact table represents 
+3. Identifying and conforming the dimensions 
+4. Choosing the facts 
+5. Storing pre calculations in the fact table 
+6. Rounding out the dimension table 
+7. Choosing the duration of the db 
+8. The need to track slowly changing dimensions 
+9. Deciding the query priorities and query models 
+Technical considerations 
+A number of technical issues are to be considered when designing a data warehouse environment. 
+These issues include: 
+ The hardware platform that would house the data warehouse 
+ The DBMS that supports the warehouse data 
+
+ 
+ 
+ The communication infrastructure that connects data marts, operational systems and end users 
+ The hardware and software to support meta data repository 
+ The systems management framework that enables admin of the entire environment 
+Implementation considerations 
+The following logical steps needed to implement a data warehouse: 
+ Collect and analyze business requirements 
+ Create a data model and a physical design 
+ Define data sources 
+ Choose the DB tech and platform 
+ Extract the data from operational DB, transform it, clean it up and load it into the 
+warehouse 
+ Choose DB access and reporting tools 
+ Choose DB connectivity software 
+ Choose data analysis and presentation s/w 
+ Update the data warehouse 
+Access tools 
+Data warehouse implementation relies on selecting suitable data access tools. The best way to choose 
+this is based on the type of data can be selected using this tool and the kind of access it permits for a particular 
+user. The following lists the various types of data that can be accessed: 
+ Simple tabular form data 
+ Ranking data 
+ Multivariable data 
+ Time series data 
+ Graphing, charting and pivoting data 
+ Complex textual search data 
+ Statistical analysis data 
+
+ 
+ 
+ Data for testing of hypothesis, trends and patterns 
+ Predefined repeatable queries 
+ Ad hoc user specified queries 
+ Reporting and analysis data 
+ Complex queries with multiple joins, multi level sub queries and sophisticated search criteria 
+Data extraction, clean up, transformation and migration 
+A proper attention must be paid to data extraction which represents a success factor for a data 
+warehouse architecture. When implementing data warehouse several the following selection criteria that 
+affect the ability to transform, consolidate, integrate and repair the data should be considered: 
+ Timeliness of data delivery to the warehouse 
+ The tool must have the ability to identify the particular data and that can be read by 
+conversion tool 
+ The tool must support flat files, indexed files since corporate data is still in this type 
+ The tool must have the capability to merge data from multiple data stores 
+ The tool should have specification interface to indicate the data to be extracted 
+ The tool should have the ability to read data from data dictionary 
+ The code generated by the tool should be completely maintainable 
+ The tool should permit the user to extract the required data 
+ The tool must have the facility to perform data type and character set translation 
+ The tool must have the capability to create summarization, aggregation and derivation of records 
+ The data warehouse database system must be able to perform loading data directly from these 
+tools 
+
+ 
+ 
+Data placement strategies 
+– As a data warehouse grows, there are at least two options for data placement. One is to put some of 
+the data in the data warehouse into another storage media. 
+– The second option is to distribute the data in the data warehouse across multiple servers. 
+ 
+ 
+User levels 
+The users of data warehouse data can be classified on the basis of their skill level in accessing 
+the warehouse. 
+There are three classes of users: 
+Casual users: are most comfortable in retrieving info from warehouse in pre defined formats and running pre 
+existing queries and reports. These users do not need tools that allow for building standard and ad hoc reports 
+Power Users: can use pre defined as well as user defined queries to create simple and ad hoc reports. These 
+users can engage in drill down operations. These users may have the experience of using reporting and query 
+tools. 
+Expert users: These users tend to create their own complex queries and perform standard analysis on the 
+info they retrieve. These users have the knowledge about the use of query and report tools 
+ 
+ 
+Benefits of data warehousing 
+Data warehouse usage includes, 
+– Locating the right info 
+– Presentation of info 
+– Testing of hypothesis 
+– Discovery of info 
+– Sharing the analysis 
+
+ 
+ 
+The benefits can be classified into two: 
+ Tangible benefits (quantified / measureable):It includes, 
+– Improvement in product inventory 
+– Decrement in production cost 
+– Improvement in selection of target markets 
+– Enhancement in asset and liability management 
+ Intangible benefits (not easy to quantified): It includes, 
+– Improvement in productivity by keeping all data in single location and 
+eliminating rekeying of data 
+– Reduced redundant processing 
+– Enhanced customer relation 
+ 
+ 
+VII 
+Warehouse Database 
+ 
+Stores both current and historical data. 
+Optimized for read-heavy operations and complex queries. 
+Usually implemented using RDBMS or columnar DBMS. 
+Includes fact and dimension tables, aggregated data, indexes, and materialized views. 
+ 
+Types: 
+ 
+1. Enterprise Data Warehouse (EDW): A centralized warehouse that stores data from across the organization 
+for analysis and reporting. 
+2. Operational Data Store (ODS): Stores real-time operational data used for day-to-day operations, not for 
+deep analytics. 
+3. Data Mart: A subset of a data warehouse, focusing on a specific business area or department. 
+4. Cloud Data Warehouse: A data warehouse hosted in the cloud, offering scalability and flexibility. 
+5. Big Data Warehouse: Designed to store vast amounts of unstructured and structured data for big data 
+analysis. 
+6. Virtual Data Warehouse: Provides access to data from multiple sources without physically storing it. 
+7. Hybrid Data Warehouse: Combines on-premises and cloud-based storage to offer flexibility. 
+8. Real-time Data Warehouse: Designed to handle real-time data streaming and analysis for immediate 
+insights. 
+ 
+Data Warehouse vs DBMS 
+Database 
+Data Warehouse 
+A common Database is based on operational or 
+transactional processing. Each operation is an 
+indivisible transaction. 
+A data Warehouse is based on analytical 
+processing. 
+
+ 
+ 
+Database 
+Data Warehouse 
+Generally, a Database stores current and up-to-
+date data which is used for daily operations. 
+A Data Warehouse maintains historical data over 
+time. Historical data is the data kept over years 
+and can used for trend analysis, make future 
+predictions and decision support. 
+A database is generally application specific. 
+Example - A database stores related data, such 
+as the student details in a school. 
+A Data Warehouse is integrated generally at the 
+organization level, by combining data from 
+different databases. 
+ 
+ 
+ 
+ 
+VIII 
+Mapping the Data Warehouse to a Multiprocessor Architecture 
+ 
+The functions of data warehouse are based on the relational data base technology. The relational data base 
+technology is implemented in parallel manner. There are two advantages of having parallel relational data base 
+technology for data warehouse: 
+ Linear Speed up: refers the ability to increase the number of processor to reduce response time 
+ Linear Scale up: refers the ability to provide same performance on the same requests as the database 
+size increases 
+Types of parallelism 
+There are two types of parallelism: 
+ Inter query Parallelism: In which different server threads or processes handle multiple requests at the 
+same time. 
+ Intra query Parallelism: This form of parallelism decomposes the serial SQL query into lower level 
+operations such as scan, join, sort etc. Then these lower level operations are executed concurrently in 
+parallel. 
+
+ 
+ 
+Intra query parallelism can be done in either of two ways: 
+ Horizontal parallelism: which means that the data base is partitioned across multiple disks and parallel 
+processing occurs within a specific task that is performed concurrently on different processors against 
+different set of data 
+ Vertical parallelism: This occurs among different tasks. All query components such as scan, join, sort 
+etc are executed in parallel in a pipelined fashion. In other words, an output from one task becomes an 
+input into another task. 
+Data partitioning: 
+Data partitioning is the key component for effective parallel execution of data base 
+operations. Partition can be done randomly or intelligently. 
+Random portioning includes random data striping across multiple disks on a single server. Another option for 
+random portioning is round robin fashion partitioning in which each record is placed on the next disk 
+assigned to the data base. 
+Intelligent partitioning assumes that DBMS knows where a specific record is located and does not waste 
+time searching for it across all disks. 
+The various intelligent partitioning include: 
+Hash partitioning: A hash algorithm is used to calculate the partition number based on the value of the 
+partitioning key for each row 
+
+ 
+ 
+Key range partitioning: Rows are placed and located in the partitions according to the value of the partitioning 
+key. That is all the rows with the key value from A to K are in partition 1, L to T are in partition 2 and so on. 
+Schema portioning: an entire table is placed on one disk; another table is placed on different disk etc. This is 
+useful for small reference tables. 
+User defined portioning: It allows a table to be partitioned on the basis of a user defined expression. 
+ 
+1.Relational data base technology for data warehouse 
+Linear Speed up: refers the ability to increase the number of processor to reduce response time Linear Scale up: refers 
+the ability to provide same performance on the same requests as the database size increases 
+1.1. Types of parallelism 
+Inter query Parallelism: In which different server threads or processes handle multiple requests at the same time. 
+Intra query Parallelism: This form of parallelism decomposes the serial SQL query into lower level operations such 
+as scan, join, sort etc. Then these lower level operations are executed concurrently in parallel. 
+Intra query parallelism can be done in either of two ways: 
+Horizontal parallelism: which means that the data base is partitioned across multiple disks and parallel processing 
+occurs within a specific task that is performed concurrently on different processors against different set of data 
+Vertical parallelism: This occurs among different tasks. All query components such as scan, join, sort etc are executed 
+in parallel in a pipelined fashion. In other words, an output from one task becomes an input into another task. 
+ 
+ 
+1.2 Data partitioning: 
+ 
+Data partitioning is the key component for effective parallel execution of data base operations. Partition can be done 
+
+ 
+ 
+randomly or intelligently. 
+ Random portioning: 
+Includes random data striping across multiple disks on a single server.Another option for random portioning is 
+round robin fashion partitioning in which each record is placed on the next disk assigned to the data base. 
+Intelligent partitioning: 
+ Assumes that DBMS knows where a specific record is located and does not waste time searching for it across all 
+disks. 
+The various intelligent partitioning include: 
+Hash partitioning: A hash algorithm is used to calculate the partition number based on the value of the partitioning 
+key for each row 
+Key range partitioning: Rows are placed and located in the partitions according to the value of the partitioning key. 
+That is all the rows with the key value from A to K are in partition 1, L to T are in partition 2 and so on. 
+Schema portioning: an entire table is placed on one disk; another table is placed on different disk etc. This is useful 
+for small reference tables. 
+User defined portioning: It allows a table to be partitioned on the basis of a user defined expression. 
+ 
+ 2. Data base architectures of parallel processing 
+There are three DBMS software architecture styles for parallel processing: 
+Shared memory or shared everything Architecture 
+Shared disk architecture 
+Shred nothing architecture 
+ 
+2.1 Shared Memory Architecture: 
+ Tightly coupled shared memory systems, illustrated in following figure have the following characteristics: 
+ Multiple PUs share memory. 
+Each PU has full access to all shared memory through a common bus. Communication between nodes occurs via 
+shared memory. Performance is limited by the bandwidth of the memory bus. It is simple to implement and provide 
+a single system image, implementing an RDBMS on SMP(symmetric multiprocessor) 
+A disadvantage of shared memory systems for parallel processing is as follows: 
+Scalability is limited by bus bandwidth and latency, and by available memory. 
+
+ 
+ 
+ 
+ 
+2.2 Shared Disk Architecture 
+ Shared disk systems are typically loosely coupled. Such systems, illustrated in following figure, have the following 
+characteristics: 
+1. Each node consists of one or more PUs and associated memory. 
+2. Memory is not shared between nodes. 
+3. Communication occurs over a common high-speed bus. 
+4. Each node has access to the same disks and other resources. 
+5. A node can be an SMP if the hardware supports it. 
+6. Bandwidth of the high-speed bus limits the number of nodes (scalability) of the system. 
+7. The Distributed Lock Manager (DLM ) is required. 
+Parallel processing advantages of shared disk systems are as follows: 
+1. Shared disk systems permit high availability. All data is accessible even if one node dies. 
+2. These systems have the concept of one database, which is an advantage over shared nothing systems. 
+3. Shared disk systems provide for incremental growth. 
+Parallel processing disadvantages of shared disk systems are these: 
+1. Inter-node synchronization is required, involving DLM overhead and greater dependency on high-speed 
+interconnect. 
+2. If the workload is not partitioned well, there may be high synchronization overhead. 
+
+ 
+ 
+ 
+ 
+2.3 Shared Nothing Architecture 
+Shared nothing systems are typically loosely coupled. In shared nothing systems only one CPU is connected to a given 
+disk. If a table or database is located on that disk Shared nothing systems are concerned with access to disks, not 
+access to memory. Adding more PUs and disks can improve scale up. 
+Shared nothing systems have advantages and disadvantages for parallel processing: 
+Advantages 
+1. Shared nothing systems provide for incremental growth. 
+2. System growth is practically unlimited. 
+3. MPPs are good for read-only databases and decision support applications. 
+4. Failure is local: if one node fails, the others stay up. 
+ 
+Disadvantages 
+1. More coordination is required. 
+2. More overhead is required for a process working on a disk belonging to another node. 
+3. If there is a heavy workload of updates or inserts, as in an online transaction processing system, it 
+may be worthwhile to consider data-dependent routing to alleviate contention. 
+ 
+
+ 
+ 
+ 
+These Requirements include: 
+1. Support for function shipping 
+2. Parallel join strategies 
+3. Support for data repartitioning 
+4. Query compilation 
+5. Support for database transactions 
+6. Support for the single system image of the database environment 
+ 
+Combined architecture 
+Interserver parallelism: each query is parallelized across multiple servers 
+Interaserver parallelism: the query is parallelized with in a server 
+The combined architecture supports inter server parallelism of distributed memory MPPs and cluster and inter-
+server parallelism of SMP nodes 
+3. Parallel DBMS features 
+ Scope and techniques of parallel DBMS operations 
+ Optimizer implementation 
+ Application transparency 
+Parallel environment: which allows the DBMS server to take full advantage of the existing facilities on a very low 
+level? 
+DBMS management tools: help to configure, tune, admin and monitor a parallel RDBMS as effectively as if it were a 
+
+ 
+ 
+serial RDBMS 
+ Price / Performance: The parallel RDBMS can demonstrate a non linear speed up and scale up at reasonable costs. 
+ 4. Alternative technologies 
+For improving performance in data warehousing environment includes 
+1. Advanced database indexing products 
+2. Multidimensional databases 
+Specialized RDBMS- Advance indexing techniques SYSBASE IQ 
+5. Parallel DBMS Vendors 
+Oracle: support parallel database processing 
+Architecture: virtual shared disk capability 
+Data partitioning: oracle 7 supports random stripping 
+Parallel operations: oracle may execute all queries serially 
+Informix: it support full parallelism. 
+Architecture: it support shared memory, shared disk and shared nothing architecture. 
+Data partitioning: Informix online 7 supports round-robin, schema, hash, key range partitioning. 
+Parallel operations: online 7 execute queries INSERT and many utilities in parallel release add parallel UPDATE and 
+DELETE. 
+ 
+IBM: it is a parallel client/server database product-DB2-E (parallel edition). 
+Architecture: it is shared nothing architecture. 
+Data partitioning: hash partitioning. 
+Parallel operations: INSERT, INDEX, CREATION are full parallelized. 
+SYBASE: it implemented its parallel DBMS functionality in a product called SYBASE MPP (SYBSE+NCR). 
+Architecture: SYBASE MPP –shared nothing architecture. 
+Data partitioning: SYBASE MPP-key range, schema partitioning. 
+Parallel operations: SYBASE MPP-horizontal parallelism, but vertical parallelism support in limited 
+Other RDBMS products 
+NCR Teradata 
+Tandem Nonstop SQL/MP 
+
+ 
+ 
+7. Specialized database products 
+Red Brick Systems 
+White Cross System ins 
+ 
+IX 
+DBMS Schema for Decision Support 
+1.Data layout for business access 
+All industries have developed considerable expertise in implementing efficient operational systems such as payroll, 
+inventory tracking, and purchasing. the original objectives in developing an abstract model known as the relational 
+model. The relational model is based on mathematical principals. The existing relational database management ( 
+RDBMSs) offer power full solution for a wide variety of commercial and scientific applications. The data warehouse 
+RDBMS typically needs to process queries that are large complex, ad hoc, and data intensive. so data warehouse 
+RDBMS are very different it use a database schema for maximizing concurrency and optimizing insert, update, and 
+delete performance. For solving modern business problems such as market analysis and financial forecasting 
+requires query-centric database schemas that are array oriented and multidimensional in nature. 
+2. Multidimensional data model 
+Note –need write about Multidimensional data model 
+3. Star schema 
+Note –need write about star schema 
+3.1 DBA view point 
+ A star schema is a relational schema organized around a central table joined to few smaller tables (dimension 
+tables)using foreign key references The fact table contains raw numeric items that represent relevant business facts 
+(price,dicont values, number of units sold,dollar sold,dollar vaue,etc The fact are accessed via dimensions since fact 
+tables are pre summarized and aggregated along business dimensions. The dimension table defines business 
+dimension in terms already familiar to user.the dimension table contain a non compound primary key and are 
+heavily indexed and these table are grouped and joined with fact table using foreign key references A star schema 
+created for every industry 
+3.2 Potential performance problem with star schemas 
+Indexing 
+It improve the performance in the star schema design. The table in star schema design contain the entire hierarchy 
+of attributes(PERIOD dimension this hierarchy could be day->week->month->quarter->year),one approach is to 
+create multi part key of day, week, month ,quarter ,year .it presents some problems in the star schema model 
+because it should be in normalized 
+Problems 
+it require multiple metadata definitions.Since the fact table must carry all key components as part of its primary 
+key, addition or deletion of levels in the physical modification of the affected table.Carrying all the segments of the 
+
+ 
+ 
+compound dimensional key in the fact table increases the size of the index, thus impacting both performance and 
+scalability. 
+ Solutions 
+ One alternative to the compound key is to concatenate the key into a single key for the attributes (day, week, month, 
+quarter, year) this is used to solve the first above two problems. The index is remains problem the best approach is 
+to drop the use of meaningful keys in favor of using an artificial, generated key which is the smallest possible key 
+that will ensure the uniqueness of each record 
+ Level indicator 
+Problems 
+ Another potential problem with the star schema design is that in order to navigate the dimensions successfully.The 
+dimensional table design includes a level of hierarchy indicator for every record. Every query that is retrieving 
+detail records from a table that stores details & aggregates must use this indicator as an additional constraint to 
+obtain a correct result. 
+ Solutions 
+The best alternative to using the level indicator is the snowflake schema. The snowflake schema contains separate 
+fact tables for each level of aggregation. So it is Impossible to make a mistake of selecting product detail. The 
+snowflake schema is even more complicated than a star schema. 
+ Other problems with the star schema design: 
+The next set of problems is related to the relational DBMS engine & optimization technology. 
+ Pairwise problem: 
+The traditional OLAP RDBMS engines are not designed for the set of complex queries that can be issued against a 
+star schema. We need to retrieve related information from several query in a single query has several limitation 
+Many OLTP RDBMS can join only two tables, so the complex query must be in the RDBMS needs to break the query 
+into series of pairwise joins. And also provide the intermediate result. this process will be do up to end of the result. 
+Thus intermediate results can be large & very costly to create. It affects the query performance. The number of ways 
+to pairwise join a set of N tables is N!( N factorial) for example. 
+The query has five table 5!=(6x5x4x3x2x1)=120 combinations. 
+Star schema join problem: 
+Because the number of pairwise join combinations is often too large to fully evaluate many RDBMS optimizers limit 
+the selection on the basis of a particular criterion. In data warehousing environment this strategy is very inefficient 
+for star schemas. In a star schema the only table directly related to most other tables in the fact table this means 
+that the fact table is natural candidate for the first pairwise join. Unfortunately the fact table is typically the very 
+largest table in the query. A pairwise join order generates very large intermediate result set. So it affects query 
+performance. 
+3.3 Solution to performance problems: 
+
+ 
+ 
+A common optimization provides some relief for the star schema join problem. The basic idea of this optimization 
+is to get around the pairwise join strategy of selecting only related tables. When two tables are joined and no 
+columns ―link‖ the tables every combination of two tables’ rows are produced. In terms of relational algebra this 
+is called a Cartesian product. 
+Normally the RDBMS optimizer logic would never consider Cartesian product but star schema considering these 
+Cartesian products. Can sometimes improve query. Alternatively it is a Cartesian product of all dimension tables is 
+first generated. 
+The key cost is the need to generate the Cartesian product of the dimension tables as long as the cost of generating 
+the Cartesian product is less than the cost of generating intermediate results with the fact table. 
+ 4.STARjoin and STARindex 
+ A STARjoin is a high-speed, single pass, parallelizable multitable joins, and Brick’s 
+RDBMS can join more than two tables in a single operation. Red Brick’s RDBMS supports the creation of specialized 
+indexes called STARindexes. it created on one or more foreign key columns of a fact table. 
+ 5. Bitmapped indexing 
+ The new approach to increasing performance of a relational DBMS is to use innovative indexing techniques to 
+provide direct access to data. SYBASE IQ uses a bit mapped index structure. The data stored in the SYBASE DBMS. 
+ 5.1 SYBASE IQ- it is based on indexing technology; it is a stand alone database. 
+ Overview: It is a separate SQL database. Data is loaded into a SYBASE IQ very much as into any relational DBMS 
+once loaded SYBASE IQ converts all data into a series of bitmaps which are than highly compressed to store on disk. 
+ Data cardinality: 
+Data cardinality bitmap indexes are used to optimize queries against a low cardinality data. That is in which-The 
+total no. of potential values in relatively low. Example: state code data cardinality is 50 potential values and general 
+cardinality is only 2 ( male to female) for low cardinality data. 
+The each distinct value has its own bitmap index consisting of a bit for every row in a table, if the bit for a given 
+index is ―on‖ the value exists in the record bitmap index representation is a 10000 bit long vector which has its 
+bits turned on(value of 1) for every record that satisfies ―gender‖=‖M‖ condition‖ Bit map indexes unsuitable for 
+high cardinality data.Another solution is to use traditional B_tree index structure. B_tree indexes can often grow to 
+large sizes because as the data volumes & the number of indexes grow. B_tree indexes can significantly improve the 
+performance, 
+SYBASE IQ was a technique is called bitwise (Sybase trademark) technology to build bit map index for high 
+cardinality data, which are limited to about 250 distinct values for high cardinality data. 
+ 
+
+ 
+ 
+ 
+ 
+Index types: 
+ The first of SYBASE IQ provide five index techniques, Most users apply two indexes to every column. The default 
+index called projection index and other is either a low or high – cardinality index. For low cardinality data SYBASE 
+IQ provides. 
+ Low fast index: it is optimized for queries involving scalar functions like SUM,AVERAGE,and COUNTS. 
+Low disk index which is optimized for disk space utilization at the cost of being more CPU-intensive. 
+Performance. 
+SYBAEE IQ technology achieves the very good performance on adhoc quires for several reasons 
+Bitwise technology: this allows various types of data type in query. And support fast data aggregation and grouping. 
+Compression: SYBAEE IQ uses sophisticated algorithms to compress data in to bit maps. 
+Optimized m/y based programming: SYBASE IQ caches data columns in m/y according to the nature of user’s 
+queries, it speed up the processor. 
+Columnwise processing: SYBASE IQ scans columns not rows, it reduce the amount of data. the engine has to search. 
+Low overhead: An engine optimized for decision support SYBASE IQ does not carry on 
+overhead associated with that. Finally OLTP designed RDBMS performance. 
+Large block I/P: Block size of SYBASE IQ can turned from 512 bytes to 64 Kbytes so system can read much more 
+information as necessary in single I/O. 
+Operating system-level parallelism: SYBASE IQ breaks low level like the sorts, bitmap manipulation, load, and I/O, 
+into nonblocking operations. 
+Projection and ad hoc join capabilities: SYBASE IQ allows users to take advantage of known join relation 
+relationships between tables by defining them in advance and building indexes between tables. 
+Shortcomings of indexing:- 
+
+ 
+ 
+The user should be aware of when choosing to use SYBASE IQ include 
+No updates-SYNBASE IQ does not support updates .the users would have to update the source database and then 
+load the update data in SYNBASE IQ on a periodic basis. 
+Lack of core RDBMS feature:-Not support all the robust features of SYBASE SQL server, such as backup and recovery 
+Less advantage for planned queries: SYBASE IQ, run on preplanned queries. 
+High memory usage: Memory access for the expensive i\o operation 
+SYBASE IQ promise increased performance without deploying expensive parallel hardware system. 
+6. Column local storage:- 
+It is an another approach to improve query performance in the data warehousing environment. For example 
+thinking machine operation has developed an innovative data layout solution that improves RDBMS query 
+performance many times. Implemented in its CM_SQL RDBMS product, this approach is based on storing data 
+column-wise as opposed to traditional row wise approach. In figure-.(Row wise approach) This approach works 
+well for OLTP environment in which a typical transaction accesses a record at a time. However in data warehousing 
+the goal is to retrieve multiple values of several columns. For example if a problem is to calculate average minimum, 
+maximum salary the columnwise storage of the salary field requires a DBMS to read only one record.(use Column –
+wise approach) 
+ 
+ 
+7. Complex data types:- 
+ The best DBMS architecture for data warehousing has been limited to traditional alphanumeric data types. But data 
+management is the need to support complex data types , Include text, image, full-motion video &sound. Large data 
+objects called binary large objects what’s required by business is much more than just storage: 
+The ability to retrieve the complex data type like an image by its content. The ability to compare the content of one 
+
+ 
+ 
+image to another in order to make rapid business decision and ability to express all of this in a single SQL statement. 
+The modern data warehouse DBMS has to be able to efficiently store, access and manipulate complex data. The 
+DBMS has to be able to define not only new data structure but also new function that manipulates them and often 
+new access methods, to provide fast and often new access to the data. An example of advantage of handling complex 
+data types is a insurance company that wants to predict its financial exposure during a catastrophe such as flood 
+that wants to support complex data. 
+ 
+X 
+ Meta Data Management in Data Warehouse 
+ 
+Metadata is data that describes and contextualizes other data. It provides information about the content, format, 
+structure, and other characteristics of data, and can be used to improve the organization, discoverability, and 
+accessibility of data. 
+Metadata can be stored in various forms, such as text, XML, or RDF, and can be organized using metadata standards 
+and schemas. There are many metadata standards that have been developed to facilitate the creation and 
+management of metadata, such as Dublin Core, schema.org, and the Metadata Encoding and Transmission 
+Standard (METS). Metadata schemas define the structure and format of metadata and provide a consistent 
+framework for organizing and describing data. 
+Metadata can be used in a variety of contexts, such as libraries, museums, archives, and online platforms. It can be 
+used to improve the discoverability and ranking of content in search engines and to provide context and additional 
+information about search results. Metadata can also support data governance by providing information about the 
+ownership, use, and access controls of data, and can facilitate interoperability by providing information about the 
+content, format, and structure of data, and by enabling the exchange of data between different systems and 
+applications. Metadata can also support data preservation by providing information about the context, 
+provenance, and preservation needs of data, and can support data visualization by providing information about 
+the data's structure and content, and by enabling the creation of interactive and customizable visualizations. 
+Several Examples of Metadata: 
+Metadata is data that provides information about other data. Here are a few examples of metadata: 
+1. File metadata: This includes information about a file, such as its name, size, type, and creation date. 
+2. Image metadata: This includes information about an image, such as its resolution, color depth, and camera 
+settings. 
+3. Music metadata: This includes information about a piece of music, such as its title, artist, album, and genre. 
+4. Video metadata: This includes information about a video, such as its length, resolution, and frame rate. 
+5. Document metadata: This includes information about a document, such as its author, title, and creation date. 
+6. Database metadata: This includes information about a database, such as its structure, tables, and fields. 
+7. Web metadata: This includes information about a web page, such as its title, keywords, and description. 
+ 
+Metadata is an important part of many different types of data and can be used to provide valuable context and 
+information about the data it relates to. 
+Types of Metadata: 
+There are many types of metadata that can be used to describe different aspects of data, such as its content, format, 
+structure, and provenance. Some common types of metadata include: 
+
+ 
+ 
+1. Descriptive metadata: This type of metadata provides information about the content, structure, and format 
+of data, and may include elements such as title, author, subject, and keywords. Descriptive metadata helps to 
+identify and describe the content of data and can be used to improve the discoverability of data through search 
+engines and other tools. 
+2. Administrative metadata: This type of metadata provides information about the management and technical 
+characteristics of data, and may include elements such as file format, size, and creation date. Administrative 
+metadata helps to manage and maintain data over time and can be used to support data governance and 
+preservation. 
+3. Structural metadata: This type of metadata provides information about the relationships and organization 
+of data, and may include elements such as links, tables of contents, and indices. Structural metadata helps to 
+organize and connect data and can be used to facilitate the navigation and discovery of data. 
+4. Provenance metadata: This type of metadata provides information about the history and origin of data, and 
+may include elements such as the creator, date of creation, and sources of data. Provenance metadata helps to 
+provide context and credibility to data and can be used to support data governance and preservation. 
+5. Rights metadata: This type of metadata provides information about the ownership, licensing, and access 
+controls of data, and may include elements such as copyright, permissions, and terms of use. Rights metadata 
+helps to manage and protect the intellectual property rights of data and can can be used to support data 
+governance and compliance. 
+6. Educational metadata: This type of metadata provides information about the educational value and learning 
+objectives of data, and may include elements such as learning outcomes, educational levels, and competencies. 
+Educational metadata can be used to support the discovery and use of educational resources, and to support 
+the design and evaluation of learning environments. 
+ 
+Metadata can be stored in various forms, such as text, XML, or RDF, and can be organized using metadata standards 
+and schemas. There are many metadata standards that have been developed to facilitate the creation and 
+management of metadata, such as Dublin Core, schema.org, and the Metadata Encoding and Transmission 
+Standard (METS). Metadata schemas define the structure and format. 
+Metadata Repository 
+A metadata repository is a database or other storage mechanism that is used to store metadata about data. A 
+metadata repository can be used to manage, organize, and maintain metadata in a consistent and structured 
+manner, and can facilitate the discovery, access, and use of data. 
+A metadata repository may contain metadata about a variety of types of data, such as documents, images, audio 
+and video files, and other types of digital content. The metadata in a metadata repository may include information 
+about the content, format, structure, and other characteristics of data, and may be organized using metadata 
+standards and schemas. 
+There are many types of metadata repositories, ranging from simple file systems or spreadsheets to complex 
+database systems. The choice of metadata repository will depend on the needs and requirements of the 
+organization, as well as the size and complexity of the data that is being managed. 
+Metadata repositories can be used in a variety of contexts, such as libraries, museums, archives, and online 
+platforms. They can be used to improve the discoverability and ranking of content in search engines, and to 
+provide context and additional information about search results. Metadata repositories can also support data 
+governance by providing information about the ownership, use, and access controls of data, and can facilitate 
+interoperability by providing information about the content, format, and structure of data, and by enabling the 
+exchange of data between different systems and applications. Metadata repositories can also support data 
+preservation by providing information about the context, provenance, and preservation needs of data, and can 
+support data visualization by providing information about the data's structure and content, and by enabling the 
+creation of interactive and customizable visualizations. 
+
+ 
+ 
+Benefits of Metadata Repository 
+A metadata repository is a centralized database or system that is used to store and manage metadata. Some of the 
+benefits of using a metadata repository include: 
+1. Improved data quality: A metadata repository can help ensure that metadata is consistently structured and 
+accurate, which can improve the overall quality of the data. 
+2. Increased data accessibility: A metadata repository can make it easier for users to access and understand 
+the data, by providing context and information about the data. 
+3. Enhanced data integration: A metadata repository can facilitate data integration by providing a common 
+place to store and manage meta data from multiple sources. 
+4. Improved data governance: A metadata repository can help enforce metadata standards and policies, 
+making it easier to ensure that data is being used and managed appropriately. 
+5. Enhanced data security: A metadata repository can help protect the privacy and security of metadata, by 
+providing controls to restrict access to sensitive or confidential information. 
+ 
+Metadata repositories can provide many benefits in terms of improving the quality, accessibility, and management 
+of data. 
+Challenges for Metadata Management 
+There are several challenges that can arise when managing metadata: 
+1. Lack of standardization: Different organizations or systems may use different standards or conventions for 
+metadata, which can make it difficult to effectively manage metadata across different sources. 
+2. Data quality: Poorly structured or incorrect metadata can lead to problems with data quality, making it more 
+difficult to use and understand the data. 
+3. Data integration: When integrating data from multiple sources, it can be challenging to ensure that the 
+metadata is consistent and aligned across the different sources. 
+4. Data governance: Establishing and enforcing metadata standards and policies can be difficult, especially in large 
+organizations with multiple stakeholders. 
+5. Data security: Ensuring the security and privacy of metadata can be a challenge, especially when working with 
+sensitive or confidential information. 
+ 
+Metadata Management Software/tools: 
+ 
+Software for managing metadata makes it easier to assess, curate, collect, and store metadata. In order to enable 
+data monitoring and accountability, organizations should automate data management. Examples of this kind of 
+software include the following: 
+ 
+SAP Power Designer by SAP: This data management system has a good level of stability. It is recognised for 
+its ability to serve as a platform for model testing. 
+ 
+SAP Information Steward by SAP: This solution's data insights make it valuable. 
+ 
+IBM InfoSphere Information Governance Catalog by IBM: The ability to use Open IGC to build unique assets 
+and data lineages is a key feature of this system. 
+ 
+Alation Data Catalog by Alation: This provides a user-friendly, intuitive interface. It is valued for the queries 
+it can publish in Standard Query Language (SQL). 
+ 
+Informatica Enterprise Data Catalog by Informatica: The technology used by this solution, which can both 
+scan and gather information from diverse sources, is highly respected. 
+ 
+
+ 
+ 
+Effective metadata management requires careful planning and coordination, as well as robust processes and tools to 
+ensure the quality, consistency, and security of the metadata. 
+
