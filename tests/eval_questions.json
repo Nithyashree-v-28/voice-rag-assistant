@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "question": "What are the differences between operational data and informational data?",
+    "type": "direct",
+    "answerable": true,
+    "expected_keywords": ["transactional", "detailed", "updateable", "summarized", "nonupdatable"]
+  },
+  {
+    "id": 2,
+    "question": "Compare star schema, snowflake schema, and fact constellation.",
+    "type": "multi_chunk",
+    "answerable": true,
+    "expected_keywords": ["central fact table", "dimension tables", "normalized", "multiple fact tables"]
+  },
+  {
+    "id": 3,
+    "question": "What is granularity in a data warehouse, and how does it affect performance and storage?",
+    "type": "conceptual",
+    "answerable": true,
+    "expected_keywords": ["level of detail", "high granularity", "low granularity", "storage"]
+  },
+  {
+    "id": 4,
+    "question": "Explain the top-down and bottom-up approaches to building a data warehouse.",
+    "type": "multi_chunk",
+    "answerable": true,
+    "expected_keywords": ["Bill Inmon", "Ralph Kimball", "data marts", "conformed dimensions"]
+  },
+  {
+    "id": 5,
+    "question": "What is metadata in a data warehouse, and what are its two main categories?",
+    "type": "direct",
+    "answerable": true,
+    "expected_keywords": ["data about data", "technical metadata", "business metadata"]
+  },
+  {
+    "id": 6,
+    "question": "What are the business and technological factors that drive organizations to build a data warehouse?",
+    "type": "conceptual",
+    "answerable": true,
+    "expected_keywords": ["quick and correct", "incompatib", "infrastructure"]
+  },
+  {
+    "id": 7,
+    "question": "Differentiate inter-query and intra-query parallelism. Also explain horizontal and vertical parallelism.",
+    "type": "multi_chunk",
+    "answerable": true,
+    "expected_keywords": ["inter-query", "intra-query", "horizontal", "vertical", "pipelined"]
+  },
+  {
+    "id": 8,
+    "question": "Compare shared memory, shared disk, and shared nothing architectures used in parallel database processing.",
+    "type": "multi_chunk",
+    "answerable": true,
+    "expected_keywords": ["shared memory", "shared disk", "shared nothing"]
+  }
+]

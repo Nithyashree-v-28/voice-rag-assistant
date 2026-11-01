@@ -47,7 +47,7 @@ def ask_question(question):
     question_embedding = model.encode([question])
 
     # Retrieve 3 relevant chunks
-    distances, indices = index.search(question_embedding, 3)
+    distances, indices = index.search(question_embedding, 5)
 
     retrieved_text = ""
 
@@ -59,11 +59,19 @@ def ask_question(question):
 
     # Prepare prompt for Gemini
     prompt = f"""
-    Answer the question using ONLY the syllabus context below.
+   Answer the question using ONLY the syllabus context below.
 
-    If the answer is not available in the context,
-    clearly say that the syllabus does not provide this information.
+You may combine related information such as benefits,
+objectives, features, and functions to answer questions
+about purpose.
 
+If the answer can be reasonably inferred from the context,
+provide the explanation using the available information.
+
+If the context genuinely does not contain enough information,
+clearly say that the syllabus does not provide this information.
+
+Do not introduce facts that are not supported by the context.
     Syllabus Context:
     {retrieved_text}
 
@@ -111,7 +119,7 @@ def ask_question(question):
 
 # Test the RAG pipeline
 if __name__ == "__main__":
-    question = "What is the purpose of a Data Warehouse?"
+    question = "What are the components of a DataWarehouse"
 
     answer = ask_question(question)
 

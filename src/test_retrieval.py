@@ -23,7 +23,7 @@ def search_syllabus(question):
 
     question_embedding = model.encode([question])
 
-    distances, indices = index.search(question_embedding, 3)
+    distances, indices = index.search(question_embedding, 7)
 
     print("\nQuestion:", question)
 
@@ -34,4 +34,4 @@ def search_syllabus(question):
 
 
 # Test one question
-search_syllabus("What are the components of a Data Warehouse")
+search_syllabus("Question: What are the differences between star schema and snowflake schema?")

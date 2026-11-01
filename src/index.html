@@ -1,0 +1,601 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholar AI | Syllabus Assistant</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #0b1020;
+            color: #f1f5f9;
+            min-height: 100vh;
+        }
+
+        .app {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+
+        .sidebar {
+            width: 250px;
+            background: #11182b;
+            padding: 28px 20px;
+            border-right: 1px solid #25304a;
+        }
+
+        .brand {
+            font-size: 23px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #a78bfa;
+        }
+
+        .tagline {
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .sidebar-card {
+            margin-top: 35px;
+            padding: 16px;
+            background: #1a2440;
+            border-radius: 12px;
+        }
+
+        .sidebar-card h3 {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-card p {
+            font-size: 12px;
+            color: #94a3b8;
+            line-height: 1.7;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-top: 25px;
+            font-size: 12px;
+            color: #86efac;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+        }
+
+        /* Main area */
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .topbar {
+            padding: 22px 35px;
+            border-bottom: 1px solid #25304a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topbar h2 {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .topbar span {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .chat-area {
+            flex: 1;
+            width: 100%;
+            max-width: 850px;
+            margin: auto;
+            padding: 45px 25px 25px;
+        }
+
+        .welcome {
+            text-align: center;
+            margin: 35px 0 40px;
+        }
+
+        .welcome-icon {
+            width: 65px;
+            height: 65px;
+            display: grid;
+            place-items: center;
+            margin: 0 auto 20px;
+            border-radius: 20px;
+            font-size: 30px;
+            background: linear-gradient(135deg, #6d5dfc, #a78bfa);
+        }
+
+        .welcome h1 {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .welcome p {
+            color: #94a3b8;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* Chat messages */
+
+        .message {
+            margin: 22px 0;
+            display: flex;
+            gap: 13px;
+            align-items: flex-start;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: #293454;
+        }
+
+        .user .avatar {
+            background: #5140b9;
+        }
+
+        .bubble {
+            background: #17213a;
+            padding: 15px 18px;
+            border-radius: 5px 15px 15px 15px;
+            max-width: 90%;
+            line-height: 1.7;
+            font-size: 14px;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .user .bubble {
+            background: #393078;
+            border-radius: 15px 5px 15px 15px;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .answer-actions {
+            margin: 10px 0 0 49px;
+        }
+
+        .small-btn {
+            background: transparent;
+            color: #a5b4fc;
+            border: 1px solid #39466b;
+            padding: 7px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-right: 6px;
+        }
+
+        .small-btn:hover {
+            background: #263253;
+        }
+
+        /* Input area */
+
+        .input-section {
+            max-width: 850px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 15px 25px 25px;
+        }
+
+        .input-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            border: 1px solid #39466b;
+            background: #17213a;
+            border-radius: 17px;
+        }
+
+        .input-box input {
+            flex: 1;
+            min-width: 0;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            font-size: 14px;
+            padding: 10px;
+        }
+
+        .input-box input::placeholder {
+            color: #8491aa;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        .action-btn {
+            border: none;
+            border-radius: 11px;
+            padding: 12px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .mic-btn {
+            background: #293454;
+            color: white;
+        }
+
+        .mic-btn:hover {
+            background: #3b4b75;
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, #6d5dfc, #8b5cf6);
+            color: white;
+            font-weight: 600;
+        }
+
+        .send-btn:hover {
+            opacity: 0.85;
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .hint {
+            text-align: center;
+            font-size: 11px;
+            color: #71809d;
+            margin-top: 13px;
+        }
+
+        .recording {
+            background: #7f1d1d !important;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            50% { opacity: 0.55; }
+        }
+
+        .loading {
+            color: #a5b4fc;
+            animation: pulse 1s infinite;
+        }
+
+        @media (max-width: 700px) {
+            .sidebar {
+                display: none;
+            }
+
+            .topbar {
+                padding: 18px;
+            }
+
+            .chat-area {
+                padding: 20px 15px;
+            }
+
+            .input-section {
+                padding: 12px;
+            }
+
+            .welcome h1 {
+                font-size: 24px;
+            }
+
+            .action-btn {
+                padding: 11px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+        <div class="brand">✦ Scholar AI</div>
+        <p class="tagline">
+            Your intelligent syllabus assistant.
+            Ask questions and explore your study material.
+        </p>
+
+        <div class="sidebar-card">
+            <h3>📚 Knowledge Source</h3>
+            <p>
+                Uploaded syllabus PDF<br>
+                Semantic search enabled<br>
+                AI-powered answers
+            </p>
+        </div>
+
+        <div class="status">
+            <span class="dot"></span>
+            Assistant interface ready
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <h2>Syllabus Assistant</h2>
+            <span>AI Research Project</span>
+        </header>
+
+        <section class="chat-area" id="chatArea">
+
+            <div class="welcome" id="welcome">
+                <div class="welcome-icon">✦</div>
+                <h1>What would you like to learn?</h1>
+                <p>
+                    Ask questions about your syllabus.<br>
+                    Type your question or use the microphone.
+                </p>
+            </div>
+
+        </section>
+
+        <section class="input-section">
+
+            <div class="input-box">
+
+                <button
+                    class="action-btn mic-btn"
+                    id="micButton"
+                    onclick="startListening()"
+                    title="Speak your question">
+                    🎤
+                </button>
+
+                <input
+                    type="text"
+                    id="question"
+                    placeholder="Ask something about your syllabus..."
+                    onkeydown="if(event.key === 'Enter') askQuestion()"
+                >
+
+                <button
+                    class="action-btn send-btn"
+                    id="sendButton"
+                    onclick="askQuestion()">
+                    Send ↑
+                </button>
+
+            </div>
+
+            <p class="hint" id="hint">
+                Press the microphone to speak or type your question.
+            </p>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script>
+
+    let latestAnswer = "";
+
+    // Add a message to the chat
+    function addMessage(text, type) {
+
+        document.getElementById("welcome")?.remove();
+
+        const chatArea = document.getElementById("chatArea");
+
+        const message = document.createElement("div");
+        message.className = "message " + type;
+
+        const avatar = document.createElement("div");
+        avatar.className = "avatar";
+        avatar.textContent = type === "user" ? "👤" : "✦";
+
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+        bubble.textContent = text;
+
+        message.appendChild(avatar);
+        message.appendChild(bubble);
+
+        chatArea.appendChild(message);
+
+        chatArea.scrollTop = chatArea.scrollHeight;
+
+        return bubble;
+    }
+
+
+    // Send question to FastAPI
+    async function askQuestion() {
+
+        const input = document.getElementById("question");
+        const question = input.value.trim();
+
+        if (!question) {
+            alert("Please enter a question!");
+            return;
+        }
+
+        input.value = "";
+
+        addMessage(question, "user");
+
+        const sendButton = document.getElementById("sendButton");
+        sendButton.disabled = true;
+
+        const loadingBubble = addMessage("Searching your syllabus...", "assistant");
+        loadingBubble.classList.add("loading");
+
+        try {
+
+            const response = await fetch("http://127.0.0.1:8000/ask", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    question: question
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error("API request failed: " + response.status);
+            }
+
+            const data = await response.json();
+
+            loadingBubble.classList.remove("loading");
+            loadingBubble.textContent = data.answer;
+
+            latestAnswer = data.answer;
+
+            // Speak the generated answer
+            speakAnswer(data.answer);
+
+            // Add speech controls
+            const actions = document.createElement("div");
+            actions.className = "answer-actions";
+
+            const playButton = document.createElement("button");
+            playButton.className = "small-btn";
+            playButton.textContent = "🔊 Listen";
+            playButton.onclick = () => speakAnswer(latestAnswer);
+
+            const stopButton = document.createElement("button");
+            stopButton.className = "small-btn";
+            stopButton.textContent = "⏹ Stop";
+            stopButton.onclick = () => window.speechSynthesis.cancel();
+
+            actions.appendChild(playButton);
+            actions.appendChild(stopButton);
+
+            loadingBubble.parentElement.after(actions);
+
+        } catch (error) {
+
+            loadingBubble.classList.remove("loading");
+            loadingBubble.textContent =
+                "Unable to get an answer. Please check the API connection or Gemini availability.";
+
+            console.error(error);
+
+        } finally {
+
+            sendButton.disabled = false;
+            input.focus();
+
+        }
+    }
+
+
+    // Speech-to-text
+    function startListening() {
+
+        const SpeechRecognition =
+            window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (!SpeechRecognition) {
+            alert("Speech recognition is not supported. Please use Chrome.");
+            return;
+        }
+
+        const recognition = new SpeechRecognition();
+
+        const micButton = document.getElementById("micButton");
+        const hint = document.getElementById("hint");
+
+        recognition.lang = "en-IN";
+        recognition.continuous = false;
+        recognition.interimResults = false;
+
+        recognition.onstart = function() {
+            micButton.classList.add("recording");
+            hint.textContent = "Listening... Speak your question now.";
+        };
+
+        recognition.onresult = function(event) {
+
+            const transcript = event.results[0][0].transcript;
+
+            document.getElementById("question").value = transcript;
+
+            hint.textContent = "Question recognized! Sending it to the assistant...";
+
+            askQuestion();
+        };
+
+        recognition.onerror = function(event) {
+            hint.textContent = "Microphone error: " + event.error;
+        };
+
+        recognition.onend = function() {
+            micButton.classList.remove("recording");
+
+            if (hint.textContent === "Listening... Speak your question now.") {
+                hint.textContent = "Press the microphone to try again.";
+            }
+        };
+
+        recognition.start();
+    }
+
+
+    // Text-to-speech
+    function speakAnswer(text) {
+
+        if (!text || !("speechSynthesis" in window)) {
+            return;
+        }
+
+        window.speechSynthesis.cancel();
+
+        const speech = new SpeechSynthesisUtterance(text);
+
+        speech.lang = "en-IN";
+        speech.rate = 1;
+        speech.pitch = 1;
+
+        window.speechSynthesis.speak(speech);
+    }
+
+</script>
+
+</body>
+</html>
